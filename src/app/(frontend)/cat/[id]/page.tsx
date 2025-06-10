@@ -22,12 +22,12 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
   }
   
   return (
-    <div className='flex flex-col w-full'>
-      <div className="mx-8 mt-8 flex flex-row flex-wrap shadow">
-        <CatImage cat={cat} className="rounded"></CatImage>
+    <div className='flex flex-col w-full p-8'>
+      <div className="flex flex-row flex-wrap md:flex-nowrap shadow">
+        <CatImage cat={cat} className="rounded max-h-[256px]"></CatImage>
 
-        <div className="flex flex-col ms-4">
-          <h2 className="mb-4">
+        <div className="flex flex-col px-4 py-2 w-full">
+          <h2>
             {cat.name ? cat.name : "'Unnamed'"}{' '}
             {cat.birthday
               ? `- ${new Date(Date.parse(cat.birthday || '')).toLocaleDateString('de')}`

@@ -31,6 +31,10 @@ export const Cats: CollectionConfig = {
       name: "weights",
       hasMany: true,
       relationTo: "weights"
+    },
+    {
+      type: "textarea",
+      name: "notes"
     }
   ]
 }

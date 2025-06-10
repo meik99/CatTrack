@@ -9,10 +9,12 @@ export async function updateCat({
   cat,
   name,
   birthday,
+  notes,
 }: {
-  cat: Cat
-  name: string
-  birthday: string
+  cat: Cat,
+  name: string,
+  birthday: string,
+  notes: string
 }) {
   const payloadConfig = await config
   const payload = await getPayload({config: payloadConfig})
@@ -22,7 +24,8 @@ export async function updateCat({
     id: cat.id,
     data: {
       name: name,
-      birthday: birthday
+      birthday: birthday,
+      notes: notes
     }
   })
   

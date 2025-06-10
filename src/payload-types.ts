@@ -163,6 +163,7 @@ export interface Cat {
   birthday?: string | null;
   images?: (number | Media)[] | null;
   weights?: (number | Weight)[] | null;
+  notes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -284,6 +285,7 @@ export interface CatsSelect<T extends boolean = true> {
   birthday?: T;
   images?: T;
   weights?: T;
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
