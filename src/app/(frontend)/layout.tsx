@@ -44,15 +44,16 @@ export default async function RootLayout(props: any) {
       <body className="h-screen">
         <DrawerProvider>
           <div className="flex flex-row w-full px-8 p-4 shadow justify-between items-center">
-            <div className="text-4xl ">
-              Cat Track
+            <div className="text-4xl">
+              <a href="/cats">Cat Track</a>
               <DrawerButton></DrawerButton>
             </div>
-            <div>Logged in as {user?.email}</div>
           </div>
           <div className="flex flex-row w-full h-full">
-            <Drawer cats={cats.docs}></Drawer>
-            {children}
+            <Drawer cats={cats.docs} user={user}></Drawer>
+            <main className='min-w-4/5'>
+              {children}
+            </main>            
           </div>
         </DrawerProvider>
       </body>

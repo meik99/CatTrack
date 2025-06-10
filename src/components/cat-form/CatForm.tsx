@@ -8,7 +8,7 @@ import { formatBirthday } from '@/utils/format-date'
 export default function CatForm({ cat }: { cat: Cat }) {
   const [name, setName] = useState(cat.name || '')
   const [birthday, setBirthday] = useState(formatBirthday(cat.birthday))
-  const [notes, setNotes] = useState(cat.notes)
+  const [notes, setNotes] = useState(cat.notes || '')
 
   return (
     <div className="flex flex-row gap-4 w-full">
@@ -45,7 +45,7 @@ export default function CatForm({ cat }: { cat: Cat }) {
       <div className='flex flex-col w-full'>
         <label className="font-bold text-sm">Notes</label>
         <textarea rows={5} className='border border-slate-200 rounded p-2 w-full' 
-          onChange={(event) => setNotes(event.target.value)} value={notes || ''}></textarea>
+          onChange={(event) => setNotes(event.target.value)} value={notes}></textarea>
       </div>
     </div>
   )
