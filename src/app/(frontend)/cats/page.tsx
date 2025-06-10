@@ -26,7 +26,7 @@ export default async function CatsPage() {
   })
 
   return (
-    <div className="px-8">
+    <div className="px-8 mt-4">
       <div className="flex flex-row gap-4">
         <h2>Your Cats </h2>
         <button className="button" onClick={addCat}>

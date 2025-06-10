@@ -5,6 +5,9 @@ import { headers as getHeaders } from 'next/headers.js'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import HomePage from './page'
+import { Drawer } from './drawer/Drawer'
+import { DrawerProvider } from './drawer/DrawerProvider'
+import { DrawerButton } from './drawer/DrawerButton'
 
 export const metadata = {
   description: 'A management application to weigh newborn cats and check their health',
@@ -22,9 +25,7 @@ export default async function RootLayout(props: any) {
     return (
       <html lang="en">
         <body>
-          <div className="text-4xl px-8 p-4 mb-4 shadow">
-            Cat Track            
-          </div>
+          <div className="text-4xl px-8 p-4 mb-4 shadow">Cat Track</div>
           <main>
             <HomePage></HomePage>
           </main>
@@ -33,19 +34,27 @@ export default async function RootLayout(props: any) {
     )
   }
 
+  const cats = await payload.find({
+    collection: 'cats',
+    limit: 1000,
+  })
+
   return (
     <html lang="en">
-      <body>
-        <div className='flex flex-row w-full px-8 p-4 mb-4 shadow justify-between items-center'>
-          <div className="text-4xl ">
-            Cat Track
-            <i className="bi bi-list ms-4"></i>
+      <body className="h-screen">
+        <DrawerProvider>
+          <div className="flex flex-row w-full px-8 p-4 shadow justify-between items-center">
+            <div className="text-4xl ">
+              Cat Track
+              <DrawerButton></DrawerButton>
+            </div>
+            <div>Logged in as {user?.email}</div>
           </div>
-          <div>
-            Logged in as {user.email}
+          <div className="flex flex-row w-full h-full">
+            <Drawer cats={cats.docs}></Drawer>
+            {children}
           </div>
-        </div>
-        <main>{children}</main>
+        </DrawerProvider>
       </body>
     </html>
   )

@@ -22,7 +22,7 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
   }
   
   return (
-    <>
+    <div className='flex flex-col w-full'>
       <div className="mx-8 mt-8 flex flex-row flex-wrap shadow">
         <CatImage cat={cat} className="rounded"></CatImage>
 
@@ -43,6 +43,6 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
         <CatWeightTable cat={cat}></CatWeightTable>        
         <CatWeightDialogButton cat={cat}></CatWeightDialogButton>
       </div>
-    </>
+    </div>
   )
 }
