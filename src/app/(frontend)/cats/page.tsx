@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
-import { redirect } from 'next/navigation'
 import CatCard from '@/components/cat-card/CatCard'
+import { redirect } from 'next/navigation'
 
 async function addCat() {
   'use server'

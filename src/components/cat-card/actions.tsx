@@ -14,6 +14,6 @@ export async function deleteCat(cat: Cat) {
     collection: 'cats',
     id: cat.id,
   })
-
-  redirect('/cats')
+  
+  redirect("/cats")  
 }

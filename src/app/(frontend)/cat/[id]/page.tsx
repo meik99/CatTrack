@@ -1,8 +1,10 @@
-import { getPayload } from 'payload'
+import CatForm from '@/components/cat-form/CatForm'
+import { CatImage } from '@/components/cat-image/CatImage'
+import { CatWeightDialogButton } from '@/components/cat-weight/CatWeightDialog'
+import { CatWeightTable } from '@/components/cat-weight/CatWeightTable'
 import config from '@/payload.config'
 import { redirect } from 'next/navigation'
-import { CatImage } from '@/components/cat-image/CatImage'
-import CatForm from '@/components/cat-form/CatForm'
+import { getPayload } from 'payload'
 
 export default async function CatPage({ params }: { params: Promise<{ id: string }> }) {
   const payloadConfig = await config
@@ -16,8 +18,9 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
 
   if (!cat) {
     redirect('/cats')
+    return null
   }
-
+  
   return (
     <>
       <div className="mx-8 mt-8 flex flex-row flex-wrap shadow">
@@ -37,14 +40,8 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
 
       <div className="mx-8 mt-4">
         <h3>Weights</h3>
-        <table className="mt-2 w-full md:w-1/3">
-          <thead>
-            <tr className='text-left'>
-              <th>Date</th>
-              <th>Weight</th>
-            </tr>            
-          </thead>
-        </table>
+        <CatWeightTable cat={cat}></CatWeightTable>        
+        <CatWeightDialogButton cat={cat}></CatWeightDialogButton>
       </div>
     </>
   )

@@ -3,10 +3,11 @@
 import { Cat } from '@/payload-types'
 import { useState } from 'react'
 import { updateCat } from './action'
+import { formatBirthday } from '@/utils/format-date'
 
 export default function CatForm({ cat }: { cat: Cat }) {
   const [name, setName] = useState(cat.name || '')
-  const [birthday, setBirthday] = useState(getPrefilledDate(cat.birthday))
+  const [birthday, setBirthday] = useState(formatBirthday(cat.birthday))
   
   return (
     <div>
@@ -35,18 +36,3 @@ export default function CatForm({ cat }: { cat: Cat }) {
   )
 }
 
-function getPrefilledDate(date?: string | null | undefined): string {
-    if (!date) {
-      return ""
-    }
-    
-    const parsedDate = new Date(Date.parse(date))    
-    
-    console.log(parsedDate)
-    
-    const result =  `${parsedDate.getFullYear()}-${parsedDate.getMonth() + 1 < 10 ? `0${parsedDate.getMonth() + 1}` : parsedDate.getMonth()}-${parsedDate.getDate() < 10 ? `0${parsedDate.getDate()}` : parsedDate.getDate()}`
-    
-    console.log(result)
-    
-    return result
-}

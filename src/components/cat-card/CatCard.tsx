@@ -11,7 +11,7 @@ export default async function CatCard({ cat }: { cat: Cat }) {
     <div className="shadow">
       <CatImage cat={cat}></CatImage>
 
-      <div className="p-2 text-xl font-bold">{cat.name}</div>
+      <div className="p-2 text-xl font-bold">{cat.name ? cat.name : "'Unnamed'"}</div>
       <div className="p-2">
         Born:{' '}
         {cat.birthday
