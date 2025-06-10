@@ -1,5 +1,4 @@
 import { CollectionConfig } from "payload";
-import { relationship } from "payload/shared";
 
 export const Cats: CollectionConfig = {
   slug: "cats",
@@ -10,6 +9,16 @@ export const Cats: CollectionConfig = {
     {
       type: "text",
       name: "name"
+    },
+    {
+      type: "date",
+      name: "birthday",
+      admin: {
+        date: {
+          displayFormat: "yyyy-MM-dd",
+          pickerAppearance: "default"
+        }
+      }
     },
     {
       type: "relationship",

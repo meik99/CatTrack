@@ -5,17 +5,21 @@ import React from 'react'
 import config from '@/payload.config'
 import './styles.css'
 import { login } from '@payloadcms/next/auth'
+import { redirect } from 'next/navigation'
 
 async function handleLogin(data: any) {
   'use server'
-  const payloadConfig = await config
-
+  
   const { user } = await login({
     collection: 'users',
     config: config,
     email: data.get('email'),
     password: data.get('password'),
   })
+  
+  if (user) {
+    redirect("/cats")
+  }
 }
 
 export default async function HomePage() {
@@ -23,6 +27,10 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
+  
+  if (user) {
+    redirect("/cats")
+  }
 
   return (
     <div className="flex flex-col">

@@ -160,6 +160,7 @@ export interface Media {
 export interface Cat {
   id: number;
   name?: string | null;
+  birthday?: string | null;
   images?: (number | Media)[] | null;
   weights?: (number | Weight)[] | null;
   updatedAt: string;
@@ -280,6 +281,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CatsSelect<T extends boolean = true> {
   name?: T;
+  birthday?: T;
   images?: T;
   weights?: T;
   updatedAt?: T;
