@@ -4,13 +4,12 @@ import { Cat, Media, Weight } from '@/payload-types'
 import { ReactElement } from 'react'
 import Image from 'next/image'
 import DeleteCatButton from './DeleteCatButton'
+import { CatImage } from '../cat-image/CatImage'
 
 export default async function CatCard({ cat }: { cat: Cat }) {  
-  
-  
   return (
     <div className="shadow">
-      <Image src={getImageUrl(cat.images)} alt="cat image" width={256} height={256}></Image>
+      <CatImage cat={cat}></CatImage>
 
       <div className="p-2 text-xl font-bold">{cat.name}</div>
       <div className="p-2">
@@ -28,26 +27,6 @@ export default async function CatCard({ cat }: { cat: Cat }) {
       </div>
     </div>
   )
-}
-
-function getImageUrl(images: (number | Media)[] | null | undefined) {
-  const placeholderImage = '/placeholder.png'
-
-  if (!images) {
-    return placeholderImage
-  }
-
-  if (images.length <= 0) {
-    return placeholderImage
-  }
-
-  const image = images[0] as Media
-
-  if (!image) {
-    return placeholderImage
-  }
-
-  return image.url ? image.url : placeholderImage
 }
 
 function getCurrentWeight(weights: any): ReactElement {
