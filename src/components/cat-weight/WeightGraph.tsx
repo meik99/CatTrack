@@ -2,7 +2,15 @@
 
 import { Cat, Weight } from '@/payload-types'
 import { formatBirthday } from '@/utils/format-date'
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
 
 export function WeightGraph({ cat }: { cat: Cat }) {
   const sortedWeights =
@@ -14,12 +22,14 @@ export function WeightGraph({ cat }: { cat: Cat }) {
   })
 
   return (
-    <LineChart width={600} height={300} data={data} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
-      <Line type="monotone" dataKey="weight" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="name" tick={{ dy: 10 }} />
-      <YAxis dataKey="weight" domain={["auto"]} tick={{ dx: -8 }}/>
-      <Tooltip />
-    </LineChart>
+    <ResponsiveContainer height={500} className="w-full">
+      <LineChart data={data} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
+        <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+        <CartesianGrid stroke="#ccc" />
+        <XAxis dataKey="name" tick={{ dy: 10 }} />
+        <YAxis dataKey="weight" domain={['auto']} tick={{ dx: -8 }} />
+        <Tooltip />
+      </LineChart>
+    </ResponsiveContainer>
   )
 }

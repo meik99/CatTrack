@@ -22,9 +22,23 @@ export function CatWeightRow({
   }
 
   if (isEditing) {
-    return <EditRow weight={weight} previousWeight={ previousWeight } onCancel={() => setEditing(false)} cat={cat}></EditRow>
+    return (
+      <EditRow
+        weight={weight}
+        previousWeight={previousWeight}
+        onCancel={() => setEditing(false)}
+        cat={cat}
+      ></EditRow>
+    )
   } else if (isDeleting) {
-    return <DeleteRow cat={cat} weight={weight} previousWeight={ previousWeight } onCancel={() => setDeleting(false)}></DeleteRow>
+    return (
+      <DeleteRow
+        cat={cat}
+        weight={weight}
+        previousWeight={previousWeight}
+        onCancel={() => setDeleting(false)}
+      ></DeleteRow>
+    )
   } else {
     return (
       <DisplayRow
@@ -57,7 +71,7 @@ function DisplayRow({
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
       </td>
-      <td>
+      <td className="text-right">
         <button className="button" onClick={onEdit}>
           <i className="bi bi-pen"></i>
         </button>
@@ -89,7 +103,7 @@ function DeleteRow({
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
       </td>
-      <td>
+      <td className="text-right">
         <button
           className="button button-primary"
           onClick={() => {
@@ -144,7 +158,7 @@ function EditRow({
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
       </td>
-      <td>
+      <td className="text-right">
         <button
           className="button button-primary"
           onClick={() => {

@@ -28,12 +28,14 @@ export default async function CatCard({ cat }: { cat: Cat }) {
   )
 }
 
-function getCurrentWeight(weights: any): ReactElement {
-  const objs = weights as Weight[]
-
+function getCurrentWeight(weights: any[]): ReactElement {  
+  const sortedWeights = weights
+    .map((weight: any) => weight as Weight)
+    .sort((a, b) => Date.parse(b.date || '0') - Date.parse(a.date || '0')) || []
+  
   if (!weights || weights.length <= 0) {
     return <div>Not weight yet</div>
   }
 
-  return <div>{objs[0]['weight (g)']} g</div>
+  return <div>{sortedWeights[0]['weight (g)']} g</div>
 }
