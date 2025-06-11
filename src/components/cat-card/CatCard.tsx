@@ -17,7 +17,7 @@ export default async function CatCard({ cat }: { cat: Cat }) {
           ? new Date(Date.parse(cat.birthday || '')).toLocaleDateString('de')
           : 'No data'}
       </div>
-      <div className="p-2">Current weight: {getCurrentWeight(cat.weights)}</div>
+      <div className="p-2">Current weight: {getCurrentWeight(cat.weights || [])}</div>
       <div className="p-2 mb-2 flex flex-row flex-wrap gap-2">
         <a href={'/cat/' + cat.id} className="button button-primary">
           Edit
