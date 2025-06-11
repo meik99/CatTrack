@@ -5,7 +5,15 @@ import { formatBirthday } from '@/utils/format-date'
 import { useState } from 'react'
 import { deleteWeight, updateWeight } from './actions'
 
-export function CatWeightRow({ weight, cat }: { weight?: Weight; cat: Cat }) {
+export function CatWeightRow({
+  weight,
+  cat,
+  previousWeight,
+}: {
+  weight: Weight
+  cat: Cat
+  previousWeight?: Weight
+}) {
   const [isEditing, setEditing] = useState(false)
   const [isDeleting, setDeleting] = useState(false)
 
@@ -14,13 +22,14 @@ export function CatWeightRow({ weight, cat }: { weight?: Weight; cat: Cat }) {
   }
 
   if (isEditing) {
-    return <EditRow weight={weight} onCancel={() => setEditing(false)} cat={cat}></EditRow>
+    return <EditRow weight={weight} previousWeight={ previousWeight } onCancel={() => setEditing(false)} cat={cat}></EditRow>
   } else if (isDeleting) {
-    return <DeleteRow cat={cat} weight={weight} onCancel={() => setDeleting(false)}></DeleteRow>
+    return <DeleteRow cat={cat} weight={weight} previousWeight={ previousWeight } onCancel={() => setDeleting(false)}></DeleteRow>
   } else {
     return (
       <DisplayRow
         weight={weight}
+        previousWeight={previousWeight}
         onEdit={() => setEditing(true)}
         onDelete={() => setDeleting(true)}
       ></DisplayRow>
@@ -30,10 +39,12 @@ export function CatWeightRow({ weight, cat }: { weight?: Weight; cat: Cat }) {
 
 function DisplayRow({
   weight,
+  previousWeight,
   onEdit,
   onDelete,
 }: {
   weight: Weight
+  previousWeight?: Weight
   onEdit?: () => void
   onDelete?: () => void
 }) {
@@ -41,6 +52,11 @@ function DisplayRow({
     <tr>
       <td>{formatBirthday(weight.date)}</td>
       <td>{weight['weight (g)']} g</td>
+      <td>
+        {previousWeight && previousWeight['weight (g)'] && weight['weight (g)']
+          ? weight['weight (g)'] - previousWeight['weight (g)']
+          : 0}
+      </td>
       <td>
         <button className="button" onClick={onEdit}>
           <i className="bi bi-pen"></i>
@@ -53,20 +69,35 @@ function DisplayRow({
   )
 }
 
-function DeleteRow({ cat, weight, onCancel }: { cat: Cat; weight: Weight; onCancel: () => void }) {
+function DeleteRow({
+  cat,
+  weight,
+  previousWeight,
+  onCancel,
+}: {
+  cat: Cat
+  weight: Weight
+  previousWeight?: Weight
+  onCancel: () => void
+}) {
   return (
     <tr>
       <td>{formatBirthday(weight.date)}</td>
       <td>{weight['weight (g)']} g</td>
       <td>
+        {previousWeight && previousWeight['weight (g)'] && weight['weight (g)']
+          ? weight['weight (g)'] - previousWeight['weight (g)']
+          : 0}
+      </td>
+      <td>
         <button
           className="button button-primary"
           onClick={() => {
-            async function handleDelete() {              
+            async function handleDelete() {
               await deleteWeight({ cat, weight })
               onCancel()
             }
-            
+
             handleDelete()
           }}
         >
@@ -80,7 +111,17 @@ function DeleteRow({ cat, weight, onCancel }: { cat: Cat; weight: Weight; onCanc
   )
 }
 
-function EditRow({ weight, cat, onCancel }: { weight: Weight; cat: Cat; onCancel: () => void }) {
+function EditRow({
+  weight,
+  previousWeight,
+  cat,
+  onCancel,
+}: {
+  weight: Weight
+  previousWeight?: Weight
+  cat: Cat
+  onCancel: () => void
+}) {
   const [date, setDate] = useState(formatBirthday(weight.date))
   const [currentWeight, setWeight] = useState(weight['weight (g)'] || 0)
 
@@ -97,6 +138,11 @@ function EditRow({ weight, cat, onCancel }: { weight: Weight; cat: Cat; onCancel
           className="border border-slate-200 rounded"
         />{' '}
         g
+      </td>
+      <td>
+        {previousWeight && previousWeight['weight (g)'] && weight['weight (g)']
+          ? weight['weight (g)'] - previousWeight['weight (g)']
+          : 0}
       </td>
       <td>
         <button

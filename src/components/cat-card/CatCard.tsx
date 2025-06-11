@@ -4,13 +4,12 @@ import { Cat, Media, Weight } from '@/payload-types'
 import { ReactElement } from 'react'
 import Image from 'next/image'
 import DeleteCatButton from './DeleteCatButton'
-import { CatImage } from '../cat-image/CatImage'
+import { CardImage } from './CardImage'
 
 export default async function CatCard({ cat }: { cat: Cat }) {  
   return (
     <div className="shadow">
-      <CatImage cat={cat}></CatImage>
-
+      <CardImage cat={cat}></CardImage>
       <div className="p-2 text-xl font-bold">{cat.name ? cat.name : "'Unnamed'"}</div>
       <div className="p-2">
         Born:{' '}

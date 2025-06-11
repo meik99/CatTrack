@@ -1,7 +1,8 @@
 import CatForm from '@/components/cat-form/CatForm'
-import { CatImage } from '@/components/cat-image/CatImage'
+import { CatImage } from '@/components/cat-form/CatImage'
 import { CatWeightDialogButton } from '@/components/cat-weight/CatWeightDialog'
 import { CatWeightTable } from '@/components/cat-weight/CatWeightTable'
+import { WeightGraph } from '@/components/cat-weight/WeightGraph'
 import config from '@/payload.config'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -20,9 +21,9 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
     redirect('/cats')
     return null
   }
-  
+
   return (
-    <div className='flex flex-col w-full p-8'>
+    <div className="flex flex-col w-full p-8">
       <div className="flex flex-row flex-wrap md:flex-nowrap shadow">
         <CatImage cat={cat} className="rounded max-h-[256px]"></CatImage>
 
@@ -40,8 +41,13 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
 
       <div className="mx-8 mt-4">
         <h3>Weights</h3>
-        <CatWeightTable cat={cat}></CatWeightTable>        
         <CatWeightDialogButton cat={cat}></CatWeightDialogButton>
+        <CatWeightTable cat={cat}></CatWeightTable>
+      </div>
+
+      <div className="mx-8 mt-4 w-full">
+        <h3>Development</h3>
+        <WeightGraph cat={cat}></WeightGraph>
       </div>
     </div>
   )
