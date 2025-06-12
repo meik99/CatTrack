@@ -1,4 +1,5 @@
 'use client'
+
 import { Cat } from '@/payload-types'
 import { useState } from 'react'
 import DeleteCatDialog from './DeleteCatDialog'
