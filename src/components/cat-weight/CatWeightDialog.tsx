@@ -9,14 +9,14 @@ export function CatWeightDialogButton({ cat }: { cat: Cat }) {
   const [isOpen, setOpen] = useState(false)
   
   return (
-    <div>
-      <button className='mt-2 button button-primary' onClick={() => setOpen(true)}>Add weight</button>
+    <>
+      <button className='button button-primary !rounded-[50%]' onClick={() => setOpen(true)}>+</button>
       <CatWeightDialog
         isOpen={isOpen}
         onClose={() => setOpen(false)}
         cat={cat}
       ></CatWeightDialog>
-    </div>
+    </>
   )
 }
 

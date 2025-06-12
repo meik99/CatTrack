@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@import 'palette';
+@import 'cstyles';
+
+* {
+  @apply text-lg;
+  @apply text-[var(--color-text)];
+}
+
+hr {
+  @apply text-[var(--color-border)];
+}
+
+h1 {
+  @apply text-4xl font-medium;
+}
+
+h2 {
+  @apply text-3xl font-medium;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+.input-group {
+  @apply flex flex-col gap-1;
+}
+
+.input-group label {
+  @apply font-bold text-sm;
+}
+
+.input-group input {
+  @apply border border-slate-200 rounded p-1;
+}
+
+.gallery-popup {
+  @apply fixed inset-0 backdrop-blur backdrop-grayscale-100;
+  @apply flex items-center justify-center z-50;
+}
+
+.button-fab {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  width: 64px;
+  height: 64px;
+
+  @apply rounded-4xl;
+  @apply font-semibold;
+  @apply align-baseline text-4xl;
+}

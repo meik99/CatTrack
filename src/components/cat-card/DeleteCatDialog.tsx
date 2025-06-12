@@ -15,13 +15,13 @@ export default function DeleteCatDialog(
         >
           &times;
         </button>
-        <h2 className="text-xl font-bold mb-4 text-start">Delete {cat.name ? cat.name : "'No name'"}</h2>
+        <h2 className="text-xl font-bold mb-4 text-start">Delete {cat.name ? cat.name : "Unknown"}</h2>
         <div className="text-gray-700 mb-4">
           Do you really want to delete the following cat:
         </div>
         <div className='mb-4'>
-          Name: {cat.name ? cat.name : "'No name'"} <br />
-          Born: {cat.birthday ? cat.birthday: "'N.k'"} <br />          
+          Name: {cat.name ? cat.name : "Unknown"} <br />
+          Born: {cat.birthday ? cat.birthday: "Unknown"} <br />          
         </div>
         <div>
           <button className='button button-primary me-2' onClick={onDelete}>

@@ -1,0 +1,17 @@
+.drawer {
+    background-color: var(--color-background);
+    border-right: 2px solid var(--color-border);
+}
+
+.drawer-button{    
+    @apply m-auto me-6;
+    @apply text-[var(--color-text-secondary)];
+    
+    i {
+        font-size: 200%;
+    }
+}
+
+.drawer-greeting {
+    @apply text-[var(--color-text-secondary)];
+}

@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@import 'drawer';
+@import 'card';
+@import 'button';
+
+body {
+  @apply bg-[var(--color-background)];
+}

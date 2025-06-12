@@ -72,10 +72,10 @@ function DisplayRow({
           : 0}
       </td>
       <td className="text-right">
-        <button className="button" onClick={onEdit}>
+        <button className="cursor-pointer p-2" onClick={onEdit}>
           <i className="bi bi-pen"></i>
         </button>
-        <button className="button" onClick={onDelete}>
+        <button className="cursor-pointer p-2" onClick={onDelete}>
           <i className="bi bi-trash"></i>
         </button>
       </td>
@@ -105,7 +105,7 @@ function DeleteRow({
       </td>
       <td className="text-right">
         <button
-          className="button button-primary"
+          className="cursor-pointer p-2"
           onClick={() => {
             async function handleDelete() {
               await deleteWeight({ cat, weight })
@@ -115,10 +115,11 @@ function DeleteRow({
             handleDelete()
           }}
         >
-          <i className="bi bi-trash-fill"></i>
+          <i className="bi bi-trash"></i>
         </button>
-        <button className="button" onClick={onCancel}>
-          <i className="bi bi-x-lg"></i>
+
+        <button className="cursor-pointer p-2" onClick={onCancel}>
+          <i className="bi bi-x"></i>
         </button>
       </td>
     </tr>
@@ -149,7 +150,7 @@ function EditRow({
           type="number"
           defaultValue={currentWeight}
           onChange={(event) => setWeight(parseInt(event.target.value))}
-          className="border border-slate-200 rounded"
+          className="border border-slate-200 rounded w-[75%]"
         />{' '}
         g
       </td>
@@ -160,7 +161,7 @@ function EditRow({
       </td>
       <td className="text-right">
         <button
-          className="button button-primary"
+          className="cursor-pointer p-2"
           onClick={() => {
             updateWeight({ cat, weight, date, newWeight: currentWeight })
             onCancel()
@@ -168,8 +169,8 @@ function EditRow({
         >
           <i className="bi bi-floppy"></i>
         </button>
-        <button className="button" onClick={onCancel}>
-          <i className="bi bi-x-lg"></i>
+        <button className="cursor-pointer p-2" onClick={onCancel}>
+          <i className="bi bi-x"></i>
         </button>
       </td>
     </tr>

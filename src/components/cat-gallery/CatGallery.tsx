@@ -1,6 +1,7 @@
 import { Cat, Media } from '@/payload-types'
 import { getImageUrl } from '@/utils/image-url'
 import Image from 'next/image'
+import { GalleryImage } from './GalleryImage'
 
 export async function CatGallery({ cat }: { cat: Cat }) {
   return (
@@ -8,7 +9,7 @@ export async function CatGallery({ cat }: { cat: Cat }) {
       {
         cat.images?.
           map(image => image as Media).
-          map(image => <Image key={image.id} src={getImageUrl([image])} alt='Cat image' width={256} height={256}></Image>)
+          map(image => <GalleryImage key={image.id} image={image}></GalleryImage>)
       }
     </div>
   )

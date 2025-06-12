@@ -1,0 +1,21 @@
+.button {
+  @apply py-2 px-4 rounded-lg cursor-pointer;
+  @apply bg-[var(--color-button)];
+  @apply text-center;
+  border: 1px solid var(--color-button-border);
+}
+
+.button-primary {
+  @apply bg-[var(--color-button-primary)];
+  @apply text-[var(--color-button-primary-text)];
+  border: none;
+}
+
+.button:hover {
+  @apply bg-gray-600;
+  @apply text-white;
+}
+
+.button:active {
+  @apply bg-gray-200 text-black;
+}

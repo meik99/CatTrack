@@ -1,0 +1,12 @@
+.card {
+    @apply shadow-lg rounded-xl;    
+    @apply bg-[var(--color-surface)];
+}
+
+.card-title {
+    @apply font-semibold text-xl;
+}
+
+.card-body {
+    @apply p-6;
+}

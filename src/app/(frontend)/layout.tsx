@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import './styles.css'
+
+import './styles.scss'
 import { headers as getHeaders } from 'next/headers.js'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
@@ -41,17 +42,11 @@ export default async function RootLayout(props: any) {
 
   return (
     <html lang="en">
-      <body className="h-screen">
-        <DrawerProvider>
-          <div className="flex flex-row w-full px-8 p-4 shadow justify-between items-center">
-            <div className="text-4xl">
-              <a href="/cats">Cat Track</a>
-              <DrawerButton></DrawerButton>
-            </div>
-          </div>
-          <div className="flex flex-row w-full h-full">
+      <body>
+        <DrawerProvider>          
+          <div className="flex flex-row h-full">
             <Drawer cats={cats.docs} user={user}></Drawer>
-            <main className='min-w-4/5'>
+            <main className='w-full'>
               {children}
             </main>            
           </div>

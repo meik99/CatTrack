@@ -3,7 +3,6 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import config from '@/payload.config'
-import './styles.css'
 import { login } from '@payloadcms/next/auth'
 import { redirect } from 'next/navigation'
 

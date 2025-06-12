@@ -26,18 +26,17 @@ export default async function CatsPage() {
   })
 
   return (
-    <div className="px-8 mt-4">
-      <div className="flex flex-row gap-4">
-        <h2>Your Cats </h2>
-        <button className="button" onClick={addCat}>
-          +
-        </button>
-      </div>
-      <div className="flex flex-row flex-wrap gap-4 mt-4">
+    <div className="px-8 mt-6">
+      <h2>Your Cats </h2>
+      <div className="flex flex-row flex-wrap gap-6 mt-6">
         {cats.docs.map((cat) => (
           <CatCard key={cat.id} cat={cat}></CatCard>
         ))}
       </div>
+
+      <button className="button button-primary button-fab" onClick={addCat}>
+        +
+      </button>
     </div>
   )
 }

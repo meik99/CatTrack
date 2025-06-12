@@ -9,6 +9,8 @@ import { WeightGraph } from '@/components/cat-weight/WeightGraph'
 import config from '@/payload.config'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
+import { HeroImage } from './HeroImage'
+import moment from 'moment'
 
 export default async function CatPage({ params }: { params: Promise<{ id: string }> }) {
   const payloadConfig = await config
@@ -22,43 +24,52 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
 
   if (!cat) {
     redirect('/cats')
-    return null
   }
 
   return (
     <div className="flex flex-col w-full p-8">
-      <div className="flex flex-row flex-wrap md:flex-nowrap shadow">
-        <CatImage cat={cat} className="rounded max-h-[256px]"></CatImage>
+      <div className="text-center">
+        <HeroImage cat={cat}></HeroImage>
+        <h2 className="mt-6">{cat.name ? cat.name : 'Unknown'}</h2>
+        Born: {cat.birthday ? `${moment(cat.birthday).format('DD.MM.YYYY')}` : 'Unknown'}
+        <div className="mt-6">
+          <button className="button button-primary">Edit profile</button>
+        </div>
+        <div className="m-auto text-left mt-6 p-2 border border-[var(--color-border)] rounded-xl w-[700px] max-w-[700px] text-wrap relative">
+          <button className="absolute top-[12px] right-[12px] cursor-pointer">
+            <i className="bi bi-pen !text-gray-500"></i>
+          </button>
+          {cat.notes}
+        </div>
+      </div>
 
-        <div className="flex flex-col px-4 py-2 w-full">
-          <h2>
-            {cat.name ? cat.name : "'Unnamed'"}{' '}
-            {cat.birthday
-              ? `- ${new Date(Date.parse(cat.birthday || '')).toLocaleDateString('de')}`
-              : ''}
+      <div className="card mt-6">
+        <div className='card-body'>
+          <h2 className='card-title flex flex-row justify-between'>
+            Weights
+            
+            <CatWeightDialogButton cat={cat}></CatWeightDialogButton>
           </h2>
-
-          <CatForm cat={cat}></CatForm>
+          
+          <CatWeightTable cat={cat}></CatWeightTable>
         </div>
       </div>
 
-      <div className="mx-8 mt-8">
-        <h3>Weights</h3>
-        <CatWeightDialogButton cat={cat}></CatWeightDialogButton>
-        <CatWeightTable cat={cat}></CatWeightTable>
+      <div className="card mt-6">
+        <div className='card-body'>
+          <h2 className='card-title'>Development</h2>
+          <WeightGraph cat={cat}></WeightGraph>
+        </div>        
       </div>
 
-      <div className="mx-6 mt-6 shadow p-2">
-        <h3>Development</h3>
-        <WeightGraph cat={cat}></WeightGraph>
-      </div>
-      
-      <div className="mx-8 mt-8">
-        <div className='flex flex-row gap-4 align-baseline items-baseline mb-2'>
-          <h3>Gallery</h3>
-          <GalleryUploadButton cat={cat}></GalleryUploadButton>
+      <div className="card mt-6">
+        <div className='card-body'>
+          <h2 className='card-title flex flex-row justify-between'>
+            Gallery
+            <GalleryUploadButton cat={cat}></GalleryUploadButton>
+          </h2>          
+          <CatGallery cat={cat}></CatGallery>
         </div>
-        <CatGallery cat={cat}></CatGallery>
       </div>
     </div>
   )

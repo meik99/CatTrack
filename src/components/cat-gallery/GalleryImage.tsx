@@ -6,14 +6,12 @@ import Image from 'next/image'
 import { getCardUrl, getImageUrl } from '@/utils/image-url'
 import { useState } from 'react'
 
-export function CardImage({
-  cat,
+export function GalleryImage({
+  image,
   size,
-  className,
 }: {
-  cat: Cat
+  image: Media
   size?: number
-  className?: string
 }) {
   const [isFullscreen, setFullscreen] = useState(false)
 
@@ -24,7 +22,7 @@ export function CardImage({
   return (
     <div className={`relative group max-h-[${size}px] max-w-[${size}px] rounded`}>
       <Image
-        src={getImageUrl(cat.images)}
+        src={getImageUrl([image])}
         alt="cat image"
         width={size}
         height={size}
@@ -32,12 +30,12 @@ export function CardImage({
         onClick={() => setFullscreen(true)}
       ></Image>
 
-      {isFullscreen ? <ImagePopup cat={cat} onClose={() => setFullscreen(false)}></ImagePopup> : null}
+      {isFullscreen ? <ImagePopup image={image} onClose={() => setFullscreen(false)}></ImagePopup> : null}
     </div>
   )
 }
 
-function ImagePopup({ cat, onClose }: { cat: Cat, onClose: () => void }) {
+function ImagePopup({ image, onClose }: { image: Media, onClose: () => void }) {
   const size = 600;
   
   return (
@@ -47,7 +45,7 @@ function ImagePopup({ cat, onClose }: { cat: Cat, onClose: () => void }) {
       onClick={onClose}
     >
       <Image
-        src={getCardUrl(cat.images)}
+        src={getCardUrl([image])}
         alt="Fullscreen"
         width={size}
         height={size}

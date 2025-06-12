@@ -28,6 +28,12 @@ export const Cats: CollectionConfig = {
     },
     {
       type: "relationship",
+      name: "avatar",
+      hasMany: false,
+      relationTo: "media"
+    },
+    {
+      type: "relationship",
       name: "weights",
       hasMany: true,
       relationTo: "weights"

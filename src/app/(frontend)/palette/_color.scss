@@ -1,0 +1,20 @@
+:root {
+  /* Base colors */
+  --color-background: #f9f9f9;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e0;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #555555;
+
+  /* Accent color */
+  --color-accent: #ff6f2c;
+  --color-accent-hover: #ff8144;
+  --color-accent-light: #ffe5db;
+
+  /* Button colors */
+  --color-button-primary: var(--color-accent);
+  --color-button-primary-text: #ffffff;
+  --color-button: #f9f9f9;
+  --color-button-text: #1a1a1a;
+  --color-button-border: var(--color-border);
+}
