@@ -24,12 +24,9 @@ export default async function RootLayout(props: any) {
 
   if (!user) {
     return (
-      <html lang="en">
-        <body>
-          <div className="text-4xl px-8 p-4 mb-4 shadow">Cat Track</div>
-          <main>
-            <HomePage></HomePage>
-          </main>
+      <html lang="en" className='h-full'>
+        <body className='flex flex-col h-full justify-evenly'>
+          <HomePage></HomePage>
         </body>
       </html>
     )
@@ -43,12 +40,10 @@ export default async function RootLayout(props: any) {
   return (
     <html lang="en">
       <body>
-        <DrawerProvider>          
+        <DrawerProvider>
           <div className="flex flex-row h-full">
             <Drawer cats={cats.docs} user={user}></Drawer>
-            <main className='w-full'>
-              {children}
-            </main>            
+            <main className="w-full">{children}</main>
           </div>
         </DrawerProvider>
       </body>

@@ -9,7 +9,7 @@ export async function CatGallery({ cat }: { cat: Cat }) {
       {
         cat.images?.
           map(image => image as Media).
-          map(image => <GalleryImage key={image.id} image={image}></GalleryImage>)
+          map(image => <GalleryImage key={image.id} image={image} cat={cat}></GalleryImage>)
       }
     </div>
   )

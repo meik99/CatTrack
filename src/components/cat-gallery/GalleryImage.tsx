@@ -5,13 +5,16 @@ import { Cat, Media } from '@/payload-types'
 import Image from 'next/image'
 import { getCardUrl, getImageUrl } from '@/utils/image-url'
 import { useState } from 'react'
+import { deleteImage } from './action'
 
 export function GalleryImage({
   image,
   size,
+  cat,
 }: {
   image: Media
   size?: number
+  cat: Cat
 }) {
   const [isFullscreen, setFullscreen] = useState(false)
 
@@ -29,7 +32,13 @@ export function GalleryImage({
         className={`max-h-[${size}px] max-w-[${size}px] rounded-t-xl`}
         onClick={() => setFullscreen(true)}
       ></Image>
-
+      <button 
+        className='absolute top-[12px] right-[12px] bg-[var(--color-background)] backdrop-blur-3xl py-1 px-2 rounded-lg cursor-pointer'
+        onClick={() => deleteImage(image, `/cat/${cat.id}`)}
+      >
+        <i className='bi bi-trash'></i>
+      </button>
+      
       {isFullscreen ? <ImagePopup image={image} onClose={() => setFullscreen(false)}></ImagePopup> : null}
     </div>
   )

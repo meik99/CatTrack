@@ -13,7 +13,7 @@ export function DisplayNotesField({cat}: {cat: Cat}) {
   }
   
   return (
-    <div className="m-auto text-left mt-8 p-2 border border-[var(--color-border)] rounded-xl w-[700px] max-w-[700px] text-wrap relative">
+    <div className="m-auto text-left mt-8 p-2 border border-[var(--color-border)] rounded-xl w-[700px] max-w-[700px] text-wrap relative min-h-[56px]">
       <button className="absolute top-[12px] right-[12px] cursor-pointer" onClick={() => setEditing(true)}>
         <i className="bi bi-pen !text-gray-500"></i>
       </button>
@@ -35,7 +35,7 @@ function EditNotesField({cat, setEditing }: {cat: Cat, setEditing: (isEditing: b
         <i className="bi bi-floppy !text-gray-500"></i>
       </button>
 
-      <textarea value={notes} onChange={(event) => setNotes(event.target.value)} rows={0} cols={0} className="w-full h-full outline-none focus:outline-none overflow-hidden resize-none"
+      <textarea value={notes} onChange={(event) => setNotes(event.target.value)} rows={1} cols={0} className="w-full h-full outline-none focus:outline-none overflow-hidden resize-none"
         onInput={(event) => { 
           const area = (event.target as HTMLTextAreaElement)
           area.style.height = "auto"
