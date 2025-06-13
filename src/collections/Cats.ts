@@ -3,7 +3,10 @@ import { CollectionConfig } from "payload";
 export const Cats: CollectionConfig = {
   slug: "cats",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name"    
+  },
+  access: {
+    read: () => true
   },
   fields: [
     {

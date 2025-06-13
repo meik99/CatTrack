@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import CatCard from '@/components/cat-card/CatCard'
 import { redirect } from 'next/navigation'
+import { buildPayload, getUser } from '../actions'
 
 async function addCat() {
   'use server'
@@ -17,8 +18,8 @@ async function addCat() {
 }
 
 export default async function CatsPage() {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+  const user = await getUser()
+  const payload = await buildPayload()
   const cats = await payload.find({
     collection: 'cats',
     limit: 100,
@@ -34,9 +35,9 @@ export default async function CatsPage() {
         ))}
       </div>
 
-      <button className="button button-primary button-fab" onClick={addCat}>
+      { user ? <button className="button button-primary button-fab" onClick={addCat}>
         +
-      </button>
+      </button> : null}
     </div>
   )
 }

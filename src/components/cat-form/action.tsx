@@ -1,5 +1,6 @@
 'use server'
 
+import { getUser } from '@/app/(frontend)/actions'
 import { Cat, Media } from '@/payload-types'
 import config from '@/payload.config'
 import { isPoint } from '@payloadcms/richtext-lexical/client'
@@ -19,6 +20,11 @@ export async function updateCat({
 }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
+  const user = await getUser()
+  
+  if (!user) {
+    return
+  }
 
   await payload.update({
     collection: 'cats',
@@ -42,6 +48,11 @@ export async function uploadImageForCat({
 }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
+  const user = await getUser()
+  
+  if (!user) {
+    return
+  }
 
   if (!images || images.length <= 0) {
     redirect(`/cat/${cat.id}`)

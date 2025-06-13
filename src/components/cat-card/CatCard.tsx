@@ -1,13 +1,14 @@
 'use server'
 
 import { Cat, Media, Weight } from '@/payload-types'
-import { ReactElement } from 'react'
-import Image from 'next/image'
 import DeleteCatButton from './DeleteCatButton'
 import { CardImage } from './CardImage'
 import moment from 'moment'
+import { getUser } from '@/app/(frontend)/actions'
 
 export default async function CatCard({ cat }: { cat: Cat }) {
+  const user = await getUser()
+  
   return (
     <div className="card">
       <CardImage cat={cat}></CardImage>
@@ -22,9 +23,11 @@ export default async function CatCard({ cat }: { cat: Cat }) {
         <div className="mt-5">Weight: {getCurrentWeight(cat)} g</div>
         <div className="mt-6 flex flex-row justify-between gap-4">
           <a className="button button-primary w-full" href={`/cat/${cat.id}`}>
-            Edit
+            Profile
           </a>
-          <DeleteCatButton cat={cat}></DeleteCatButton>
+          {
+            user ? <DeleteCatButton cat={cat}></DeleteCatButton> : null
+          }
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { Cat, Media } from '@/payload-types'
+import { Cat, Media, User } from '@/payload-types'
 import Image from 'next/image'
 import { getCardUrl, getImageUrl } from '@/utils/image-url'
 import { useState } from 'react'
@@ -11,10 +11,12 @@ export function GalleryImage({
   image,
   size,
   cat,
+  user,
 }: {
   image: Media
   size?: number
   cat: Cat
+  user?: User | null
 }) {
   const [isFullscreen, setFullscreen] = useState(false)
 
@@ -32,27 +34,27 @@ export function GalleryImage({
         className={`max-h-[${size}px] max-w-[${size}px] rounded-t-xl`}
         onClick={() => setFullscreen(true)}
       ></Image>
-      <button 
-        className='absolute top-[12px] right-[12px] bg-[var(--color-background)] backdrop-blur-3xl py-1 px-2 rounded-lg cursor-pointer'
-        onClick={() => deleteImage(image, `/cat/${cat.id}`)}
-      >
-        <i className='bi bi-trash'></i>
-      </button>
-      
-      {isFullscreen ? <ImagePopup image={image} onClose={() => setFullscreen(false)}></ImagePopup> : null}
+      {user ? (
+        <button
+          className="absolute top-[12px] right-[12px] bg-[var(--color-background)] backdrop-blur-3xl py-1 px-2 rounded-lg cursor-pointer"
+          onClick={() => deleteImage(image, `/cat/${cat.id}`)}
+        >
+          <i className="bi bi-trash"></i>
+        </button>
+      ) : null}
+
+      {isFullscreen ? (
+        <ImagePopup image={image} onClose={() => setFullscreen(false)}></ImagePopup>
+      ) : null}
     </div>
   )
 }
 
-function ImagePopup({ image, onClose }: { image: Media, onClose: () => void }) {
-  const size = 600;
-  
+function ImagePopup({ image, onClose }: { image: Media; onClose: () => void }) {
+  const size = 600
+
   return (
-    <div
-      id="popup"
-      className="gallery-popup"
-      onClick={onClose}
-    >
+    <div id="popup" className="gallery-popup" onClick={onClose}>
       <Image
         src={getCardUrl([image])}
         alt="Fullscreen"

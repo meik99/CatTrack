@@ -1,16 +1,16 @@
 'use client'
 
 import { Cat, User } from '@/payload-types'
-import { ReactNode, useState } from 'react'
 import { useDrawer } from './DrawerProvider'
 import { CatLink } from './CatLink'
+import { handleLogout } from './actions';
 
-export function Drawer({ cats, user }: { cats: Cat[]; user: User }) {
+export function Drawer({ cats, user }: { cats: Cat[]; user?: User | null }) {
   const { isOpen, closeDrawer, openDrawer } = useDrawer()
 
   if (!isOpen) {
     return (
-      <div className='ms-4 mt-2 w-fit'>
+      <div className="ms-4 mt-2 w-fit">
         <button className="drawer-button !me-0 !sticky !top-2" onClick={() => openDrawer()}>
           <i className="bi bi-list"></i>
         </button>
@@ -38,10 +38,25 @@ export function Drawer({ cats, user }: { cats: Cat[]; user: User }) {
         <CatLink key={cat.id} cat={cat}></CatLink>
       ))}
 
-      <div className="px-8 py-4 mt-auto">
-        <div className="drawer-greeting">Welcome</div>
-        {user?.email}
-      </div>
+      {user ? (
+        <>
+          <div className="px-8 py-4 mt-auto">
+            <div className="drawer-greeting">Welcome</div>
+            {user?.email}
+          </div>
+          <div className="px-8 pb-4 pt-0 flex">
+            <button className="button button-primary w-full" onClick={() => handleLogout()}>
+              Logout
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="px-8 py-4 mt-auto flex">
+          <a className="button button-primary w-full" href="/login">
+            Login
+          </a>
+        </div>
+      )}
     </div>
   )
 }

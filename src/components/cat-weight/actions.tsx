@@ -1,5 +1,6 @@
 'use server'
 
+import { getUser } from '@/app/(frontend)/actions'
 import { Cat, Weight } from '@/payload-types'
 import config from '@/payload.config'
 import { redirect } from 'next/navigation'
@@ -10,11 +11,13 @@ export async function updateWeight({
   weight,
   date,
   newWeight,
+  comment
 }: {
   cat: Cat
   weight: Weight
   date: string
   newWeight: number
+  comment: string
 }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
@@ -25,6 +28,7 @@ export async function updateWeight({
     data: {
       'weight (g)': newWeight,
       date: date,
+      comment: comment
     },
   })
 
@@ -54,6 +58,11 @@ export async function addWeightForCat({
 }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
+  const user = await getUser()
+
+  if (!user) {
+    return
+  }
 
   const weight = await payload.create({
     collection: 'weights',
@@ -68,8 +77,8 @@ export async function addWeightForCat({
     id: cat.id,
     data: {
       weights: [
-        ...(cat.weights?.map(weight => weight as Weight).map(weight => weight.id) || []),
-        weight.id
+        ...(cat.weights?.map((weight) => weight as Weight).map((weight) => weight.id) || []),
+        weight.id,
       ],
     },
   })

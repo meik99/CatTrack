@@ -1,6 +1,6 @@
 'use client'
 
-import { Cat, Weight } from '@/payload-types'
+import { Cat, User, Weight } from '@/payload-types'
 import { formatBirthday } from '@/utils/format-date'
 import { useState } from 'react'
 import { deleteWeight, updateWeight } from './actions'
@@ -9,10 +9,12 @@ export function CatWeightRow({
   weight,
   cat,
   previousWeight,
+  user,
 }: {
   weight: Weight
   cat: Cat
   previousWeight?: Weight
+  user?: User | null
 }) {
   const [isEditing, setEditing] = useState(false)
   const [isDeleting, setDeleting] = useState(false)
@@ -46,6 +48,7 @@ export function CatWeightRow({
         previousWeight={previousWeight}
         onEdit={() => setEditing(true)}
         onDelete={() => setDeleting(true)}
+        user={user}
       ></DisplayRow>
     )
   }
@@ -56,11 +59,13 @@ function DisplayRow({
   previousWeight,
   onEdit,
   onDelete,
+  user
 }: {
   weight: Weight
   previousWeight?: Weight
   onEdit?: () => void
   onDelete?: () => void
+  user?: User | null
 }) {
   return (
     <tr>
@@ -71,14 +76,21 @@ function DisplayRow({
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
       </td>
-      <td className="text-right">
-        <button className="cursor-pointer p-2" onClick={onEdit}>
-          <i className="bi bi-pen"></i>
-        </button>
-        <button className="cursor-pointer p-2" onClick={onDelete}>
-          <i className="bi bi-trash"></i>
-        </button>
+      <td>
+        { weight.comment }
       </td>
+      {user ? (
+        <td className="text-right">
+          <button className="cursor-pointer p-2" onClick={onEdit}>
+            <i className="bi bi-pen"></i>
+          </button>
+          <button className="cursor-pointer p-2" onClick={onDelete}>
+            <i className="bi bi-trash"></i>
+          </button>
+        </td>
+      ) : (
+        <td className="text-right"></td>
+      )}
     </tr>
   )
 }
@@ -102,6 +114,9 @@ function DeleteRow({
         {previousWeight && previousWeight['weight (g)'] && weight['weight (g)']
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
+      </td>
+      <td>
+        { weight.comment }
       </td>
       <td className="text-right">
         <button
@@ -139,6 +154,7 @@ function EditRow({
 }) {
   const [date, setDate] = useState(formatBirthday(weight.date))
   const [currentWeight, setWeight] = useState(weight['weight (g)'] || 0)
+  const [comment, setComment] = useState(weight.comment || "")
 
   return (
     <tr>
@@ -159,11 +175,19 @@ function EditRow({
           ? weight['weight (g)'] - previousWeight['weight (g)']
           : 0}
       </td>
+      <td>        
+        <input
+          type="text"
+          defaultValue={comment}
+          onChange={(event) => setComment(event.target.value)}
+          className="border border-slate-200 rounded w-[75%]"
+        />
+      </td>
       <td className="text-right">
         <button
           className="cursor-pointer p-2"
           onClick={() => {
-            updateWeight({ cat, weight, date, newWeight: currentWeight })
+            updateWeight({ cat, weight, date, newWeight: currentWeight, comment })
             onCancel()
           }}
         >

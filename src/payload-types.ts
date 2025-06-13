@@ -210,6 +210,7 @@ export interface Weight {
   id: number;
   date?: string | null;
   'weight (g)'?: number | null;
+  comment?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -376,6 +377,7 @@ export interface CatsSelect<T extends boolean = true> {
 export interface WeightsSelect<T extends boolean = true> {
   date?: T;
   'weight (g)'?: T;
+  comment?: T;
   updatedAt?: T;
   createdAt?: T;
 }
