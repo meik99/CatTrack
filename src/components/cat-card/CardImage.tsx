@@ -3,7 +3,7 @@
 
 import { Cat, Media } from '@/payload-types'
 import Image from 'next/image'
-import { getCardUrl, getImageUrl } from '@/utils/image-url'
+import { getAvatar, getCardUrl, getImageUrl } from '@/utils/image-url'
 import { useState } from 'react'
 
 export function CardImage({
@@ -24,7 +24,7 @@ export function CardImage({
   return (
     <div className={`relative group max-h-[${size}px] max-w-[${size}px] rounded`}>
       <Image
-        src={getImageUrl(cat.images)}
+        src={getAvatar(cat, "card")}
         alt="cat image"
         width={size}
         height={size}
