@@ -53,17 +53,6 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
         </div>
       </div>
 
-      <div className="card mt-8 block md:hidden">
-        <div className="card-body">
-          <h2 className="card-title flex flex-row justify-between">
-            Log
-            {user ? <CatWeightDialogButton cat={cat}></CatWeightDialogButton> : null}
-          </h2>
-
-          <CatWeightColumn cat={cat}></CatWeightColumn>
-        </div>
-      </div>
-
       <div className="card mt-8">
         <div className="card-body">
           <h2 className="card-title">Development</h2>
@@ -78,6 +67,17 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
             {user ? <GalleryUploadButton cat={cat}></GalleryUploadButton> : null}
           </h2>
           <CatGallery cat={cat}></CatGallery>
+        </div>
+      </div>
+
+      <div className="card mt-8 block md:hidden">
+        <div className="card-body">
+          <h2 className="card-title flex flex-row justify-between">
+            Log
+            {user ? <CatWeightDialogButton cat={cat}></CatWeightDialogButton> : null}
+          </h2>
+
+          <CatWeightColumn cat={cat}></CatWeightColumn>
         </div>
       </div>
     </div>
