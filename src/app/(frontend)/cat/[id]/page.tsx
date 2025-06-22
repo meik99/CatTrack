@@ -12,6 +12,7 @@ import moment from 'moment'
 import { EditProfileButton } from './EditProfileButton'
 import { DisplayNotesField } from './EditNotesField'
 import { buildPayload, getUser } from '../../actions'
+import CatWeightColumn from '@/components/cat-weight/CatWeightColumn'
 
 export default async function CatPage({ params }: { params: Promise<{ id: string }> }) {
   const payload = await buildPayload()
@@ -41,7 +42,7 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
         <DisplayNotesField cat={cat} user={user}></DisplayNotesField>
       </div>
 
-      <div className="card mt-8">
+      <div className="card mt-8 hidden md:block">
         <div className="card-body">
           <h2 className="card-title flex flex-row justify-between">
             Log
@@ -49,6 +50,17 @@ export default async function CatPage({ params }: { params: Promise<{ id: string
           </h2>
 
           <CatWeightTable cat={cat}></CatWeightTable>
+        </div>
+      </div>
+
+      <div className="card mt-8 block md:hidden">
+        <div className="card-body">
+          <h2 className="card-title flex flex-row justify-between">
+            Log
+            {user ? <CatWeightDialogButton cat={cat}></CatWeightDialogButton> : null}
+          </h2>
+
+          <CatWeightColumn cat={cat}></CatWeightColumn>
         </div>
       </div>
 
