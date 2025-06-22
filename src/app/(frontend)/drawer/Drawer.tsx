@@ -3,26 +3,40 @@
 import { Cat, User } from '@/payload-types'
 import { useDrawer } from './DrawerProvider'
 import { CatLink } from './CatLink'
-import { handleLogout } from './actions';
+import { handleLogout } from './actions'
 
-export function Drawer({ cats, user }: { cats: Cat[]; user?: User | null }) {
+export default function Drawer({ cats, user }: { cats: Cat[]; user?: User | null }) {
+  'use client'
+
   const { isOpen, closeDrawer, openDrawer } = useDrawer()
 
   if (!isOpen) {
-    return (
-      <div className="ms-4 mt-2 w-fit">
-        <button className="drawer-button !me-0 !sticky !top-2" onClick={() => openDrawer()}>
-          <i className="bi bi-list"></i>
-        </button>
-      </div>
-    )
+    return closedDrawer(openDrawer)
   }
 
+  return openedDrawer(closeDrawer, cats, user)
+}
+
+function closedDrawer(openDrawer: () => void) {
+  'use client'
+
   return (
-    <div className="drawer flex flex-col sticky top-0 !h-screen">
+    <div className="ms-4 mt-2 w-fit">
+      <button className="drawer-button !me-0 !sticky !top-2" onClick={() => openDrawer()}>
+        <i className="bi bi-list"></i>
+      </button>
+    </div>
+  )
+}
+
+function openedDrawer(closeDrawer: () => void, cats: Cat[], user: User | null | undefined) {
+  'use client'
+
+  return (
+    <div className="drawer flex flex-col sticky top-0 !h-screen !z-50">
       <div className="flex flex-row">
         <a href="/cats">
-          <h1 className="m-6 me-8 text-nowrap">Cat Track</h1>
+          <h1 className="p-6 pe-8 text-nowrap">Cat Track</h1>
         </a>
         <button className="drawer-button" onClick={() => closeDrawer()}>
           <i className="bi bi-list"></i>

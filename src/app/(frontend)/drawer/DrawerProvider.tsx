@@ -1,21 +1,31 @@
 // components/DrawerContext.jsx
-"use client";
+'use client'
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import useCheckMobileScreen from './hooks'
 
-const DrawerContext = createContext({ isOpen: false, openDrawer: () => {}, closeDrawer: () => {} });
+const DrawerContext = createContext({
+  isOpen: false,
+  openDrawer: () => {},
+  closeDrawer: () => {},
+})
 
-export const DrawerProvider = ({ children } : {children: ReactNode}) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const DrawerProvider = ({ children }: { children: ReactNode }) => {
+  const isMobile = useCheckMobileScreen()  
+  const [isOpen, setIsOpen] = useState(!isMobile)  
 
-  const openDrawer = () => setIsOpen(true);
-  const closeDrawer = () => setIsOpen(false);
+  const openDrawer = () => {
+    setIsOpen(true)
+  }
+  const closeDrawer = () => {
+    setIsOpen(false)
+  }
 
   return (
     <DrawerContext.Provider value={{ isOpen, openDrawer, closeDrawer }}>
       {children}
     </DrawerContext.Provider>
-  );
-};
+  )
+}
 
-export const useDrawer = () => useContext(DrawerContext);
+export const useDrawer = () => useContext(DrawerContext)

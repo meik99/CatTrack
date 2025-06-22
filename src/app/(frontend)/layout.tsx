@@ -2,12 +2,9 @@ import React from 'react'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import './styles.scss'
-import { headers as getHeaders } from 'next/headers.js'
-import { getPayload } from 'payload'
-import config from '@/payload.config'
-import { Drawer } from './drawer/Drawer'
 import { DrawerProvider } from './drawer/DrawerProvider'
 import { buildPayload, getUser } from './actions'
+import Drawer from './drawer/Drawer'
 
 export const metadata = {
   description: 'A management application to weigh newborn cats and check their health',
@@ -30,7 +27,7 @@ export default async function RootLayout(props: any) {
         <DrawerProvider>
           <div className="flex flex-col md:flex-row h-full">
             <Drawer cats={cats.docs} user={user}></Drawer>
-            <main className="w-full">{children}</main>
+            <main className="w-full overflow-hidden">{children}</main>
           </div>
         </DrawerProvider>
       </body>
